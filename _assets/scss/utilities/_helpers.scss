@@ -1,0 +1,120 @@
+// ==========================================================================
+// #HELPERS
+// ==========================================================================// Special Commands: SCSS_LINT
+// scss-lint:disable StringQuotes, Comment, FinalNewline, NameFormat, ColorKeyword, ColorVariable, SelectorFormat
+@import "mixins";
+
+// Screen reader text
+%srt {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  border: 0;
+  overflow: hidden;
+}
+
+// For Pseudo Elements
+%pseudos {
+  position: absolute;
+  content: '';
+}
+
+// Center alignment
+
+%align-center {
+  text-align: center;
+}
+
+// Left Text Align
+%align-left {
+  text-align: left;
+}
+
+// Right Text Align
+%align-right {
+  text-align: right;
+}
+
+.left {
+  @extend %align-left;
+}
+
+.right {
+  @extend %align-right
+}
+
+.center {
+  @extend %align-center;
+}
+
+.light {
+  font-weight: $font-weight-light;
+}
+
+.medium {
+  font-weight: $font-weight-normal;
+}
+
+.bold {
+  font-weight: $font-weight-bold;
+}
+
+%flex-sb {
+  display: flex;
+  justify-content: space-between;
+}
+
+%icn-sm {
+  display: inline-block;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0;
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+%icn-md {
+  @extend %icn-sm;
+  width: 3.4rem;
+  height: 3.4rem;
+
+  @include media-q('medium') {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+// #Colors
+.deep-carrot {
+  color: $color-accent;
+}
+
+.olive {
+  color: $color-secondary;
+}
+
+.grey {
+  color: palette(grey, dark);
+}
+
+// #Gradients
+%color-accent-grad {
+  background: linear-gradient(to right, $color-accent-dark, $color-accent);
+}
+
+// Link
+.inline {
+  display: inline-block;
+
+  @include m(link) {
+    @extend .olive, .inline;
+    text-decoration: underline;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}

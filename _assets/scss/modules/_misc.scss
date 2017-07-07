@@ -1,0 +1,16 @@
+// ==========================================================================
+// #MISC
+// ==========================================================================
+.active {
+  border-bottom: 2px solid $white;
+
+  @include media-q(medium) {
+    border-bottom-color: $color-accent;
+  }
+}
+
+.short-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

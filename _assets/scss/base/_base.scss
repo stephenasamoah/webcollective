@@ -1,0 +1,121 @@
+// ==========================================================================
+// BASE STYLES
+// ==========================================================================
+// Special Commands: SCSS_LINT
+// scss-lint:disable StringQuotes, Comment, FinalNewline, NameFormat, ColorKeyword, ColorVariable, SelectorFormat
+@import "../utilities/config";
+
+html {
+  font-size: 62.5%;
+}
+
+* {
+  position: relative;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $white;
+  color: $black;
+  font-size: 16px;
+  font-family: $font-family-primary;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Base Font Sizes
+h1 {
+  font-size: 6.854rem;
+}
+
+h2 {
+  font-size: 4.236rem;
+}
+
+h3 {
+  font-size: 2.618rem;
+}
+
+h4,
+p {
+  font-size: 1.618rem;
+}
+
+small {
+  font-size: 1.4rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.618rem;
+}
+
+
+
+// Defaults
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+p,
+hr,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  border: 0;
+  background-color: transparent;
+}
+
+
+a {
+  color: $black;
+  text-decoration: none;
+
+  &:hover {
+
+  }
+}
+
+p {
+  margin-bottom: 3.6rem;
+}
+
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+blockquote {
+  color: palette(grey, 'light');
+  font-size: 1.8rem;
+  line-height: 1.5;
+}
+
+cite {
+  color: $color-accent;
+  font-size: 1.4rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: palette(grey, 'light');
+}
+
+::selection {
+  background: $color-secondary;
+  color: $white;
+}

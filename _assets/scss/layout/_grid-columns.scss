@@ -1,0 +1,143 @@
+// ==========================================================================
+// Grid Columns
+// ==========================================================================
+// Special Commands: SCSS_LINT
+// scss-lint:disable StringQuotes, Comment, FinalNewline, NameFormat, ColorKeyword, ColorVariable, SelectorFormat, PropertySortOrder
+
+.grid {
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+
+
+  // Make nested grids 100% width
+  [class *= "grid__col--"] > & {
+    width: 100%;
+  }
+
+  // Set max-width for grid-container
+  @include media-q(large) {
+    max-width: $g-max-w;
+  }
+
+  &.main__content {
+    @include media-q(small) {
+      width: 100%;
+    }
+  }
+}
+
+// Grid Padding
+[class *= "grid__col--"] {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+
+
+
+
+
+
+
+
+// ==========================================================================
+// Flexible Navigation
+// ==========================================================================
+.flex {
+  @extend %flex-sb;
+
+  @include e(nav) {
+    @extend %flex-sb;
+
+    //width: 100%;
+    align-items: center;
+  }
+
+  // Flexible Grid
+  @include e(grid) {
+    @include m(dual) {
+      @extend %flex-sb;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+  }
+
+  // ==========================================================================
+  // Flex Column Sizes
+  // ==========================================================================
+  @include e(col) {
+    @include m(#{'1-3'}) {
+      width: 100%;
+      flex-basis: 100%;
+      flex-direction: column;
+      min-height: 14rem; // IE BugFix
+
+      @include media-q('medium') {
+        flex: 1;
+        justify-content: center;
+        max-width: 26rem;
+        height: 100vh;
+      }
+    }
+
+    @include m(#{'2-3'}) {
+      width: 100%;
+      flex-direction: column;
+      -ms-flex: 1; // IE BugFix
+
+      @include media-q('medium') {
+        flex: 2;
+        margin-top: 0;
+      }
+
+      @include media-q('large') {
+        //margin-left: 3.5%;
+      }
+    }
+  }
+
+  // ==========================================================================
+  // Flexible Social Footer
+  // ==========================================================================
+  @include e(footer) {
+    @include m(social) {
+      @extend %flex-sb;
+
+      max-width: 70%;
+      margin: auto;
+
+      @include media-q('large') {
+        max-width: 60%;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+// ==========================================================================
+// Misc
+// ==========================================================================
+[class^="flex__col--"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.bi {
+  width: 50%;
+}
+
+.tri {
+  width: 33.33%;
+}
+
+.quad {
+  width: 25%;
+}

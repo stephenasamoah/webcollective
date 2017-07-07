@@ -1,0 +1,29 @@
+// ==========================================================================
+// #PANEL
+// ==========================================================================
+// Special Commands: SCSS_LINT
+// scss-lint:disable StringQuotes, Comment, FinalNewline, NameFormat, ColorKeyword, ColorVariable, SelectorFormat, PropertySortOrder
+
+.panel {
+  @extend %panel-default;
+  // panel centered
+  @include m(centered) {
+    @extend %panel-default;
+    @extend %align-center;
+  }
+
+  // panel padded centered {
+  @include m(padded) {
+    @extend %panel-padding;
+
+    @include m(centered) {
+      @extend %panel-padding;
+      @extend %align-center;
+    }
+  }
+
+  @include e(social) {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+  }
+}

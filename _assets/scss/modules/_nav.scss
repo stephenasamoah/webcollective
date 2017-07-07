@@ -1,0 +1,53 @@
+// ==========================================================================
+// #NAVIGATION
+// ==========================================================================
+// Special Commands: SCSS_LINT
+// scss-lint:disable StringQuotes, Comment, FinalNewline, NameFormat, ColorKeyword, ColorVariable, SelectorFormat, PropertySortOrder
+
+.nav {
+  display: flex;
+  align-items: center;
+
+  // Nav List
+  @include m(list) {
+    @extend %flex-sb;
+
+    margin-top: -1rem;
+    margin-left: auto;
+    line-height: 1;
+
+
+    > li {
+      margin-left: 1.6rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    @include media-q(medium) {
+      margin-left: auto;
+      text-align: right;
+    }
+  }
+
+  // Nav Item
+  @include m(item) {
+    a {
+      color: $white;
+      padding-bottom: .3rem;
+
+      &:hover {
+        border-bottom: 2px solid $white;
+      }
+
+      @include media-q(medium) {
+        color: $black;
+
+        &:hover {
+          border-bottom: 2px solid $color-accent;
+        }
+      }
+    }
+  }
+}
