@@ -59,9 +59,9 @@ sass:
 
 #Environment
 #JEKYLL_ENV="development"
-env : production
+#env : production
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-exclude: ["css", "Gemfile", "Gemfile.lock", "Gulpfile.js", "html", "node_modules", "bower_components", "bower.json", "package.json", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/",  ]
+exclude: ["Gemfile", "Gemfile.lock", "Gulpfile.js", "html", "node_modules", "bower_components", "bower.json", "package.json", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/",  ]

@@ -55,7 +55,7 @@ gulp.task('jekyll-build', function (done) {
 /**
  * Rebuild Jekyll & do page reload
  */
-gulp.task('jekyll-rebuild', ['sass', 'jekyll-build', 'uncss'], function (cb) {
+gulp.task('jekyll-rebuild', ['jekyll-build'], function (cb) {
     browserSync.reload();
     cb();
 });
@@ -72,17 +72,13 @@ gulp.task('browser-sync', ['sass', 'jekyll-build', 'uncss'], function (cb) {
  * #Critical
  */
 gulp.task('critical', function () {
-    return gulp.src(paths.htmldir.in)
-        .pipe(critical(paths.cssdir.criticalOpts))
-        .pipe(concat('critical.css'))
-        .pipe(nano())
-        .pipe(gulp.dest(paths.includeDir))
-        .pipe(print());
-});
-
-gulp.task('critical-run', function (cb) {
     if (!devBuild) {
-        runSequence('critical', 'jekyll-rebuild', cb);
+        return gulp.src(paths.htmldir.in)
+            .pipe(critical(paths.cssdir.criticalOpts))
+            .pipe(concat('critical.css'))
+            .pipe(nano())
+            .pipe(gulp.dest(paths.includeDir))
+            .pipe(print());
     }
 });
 
@@ -123,7 +119,6 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(paths.cssdir.jekyllOut))
         .pipe(print())
         .pipe(browserSync.stream())
-
 });
 
 /**
@@ -141,7 +136,7 @@ gulp.task('js', function () {
 /**
  * UnCSS
  */
-gulp.task('uncss', ['sass'], function () {
+gulp.task('uncss', function () {
     return gulp.src(paths.cssdir.out + '**/*.css')
         .pipe(uncss(paths.cssdir.uncssOpts))
         .pipe(rename(paths.cssdir.mini))
@@ -149,8 +144,11 @@ gulp.task('uncss', ['sass'], function () {
         .pipe(size({title: 'CSS filesize after uncss:'}))
         .pipe(gulp.dest(paths.cssdir.jekyllOut))
         .pipe(print())
+        .pipe(gulp.dest(paths.cssdir.stream))
+        .pipe(print()) // For BrowserSync Stream
         .pipe(browserSync.stream())
-        .on('error', gutil.log);
+        //.on('error', gutil.log);
+
 });
 
 
@@ -174,31 +172,43 @@ gulp.task('clean', ['clear'], function () {
             paths.dest
         ]);
     } else {
-        del([
-            paths.dest,
-            paths.generatedDir + '/.'
-        ]);
+        del(paths.cleanPaths);
     }
 });
 
 // ==========================================================================
-// #Default
+// #RunSequence
 // ==========================================================================
 
-/**
- * #RunSequence
- */
+// Default
 gulp.task('build-sequence', function (cb) {
-    runSequence(['jekyll-build', 'uncss', 'htmlmin', 'browser-sync'], 'critical-run', cb);
+    runSequence(['sass', 'jekyll-build'], ['uncss', 'htmlmin'], 'critical', 'browser-sync', cb);
+});
+
+// Critical Sequence
+
+
+// CSS Tasks
+gulp.task('css-sequence', function (cb) {
+   if(devBuild) {
+       runSequence('sass', 'uncss', cb);
+   } else {
+       runSequence('sass', 'uncss', 'jekyll-rebuild', cb);
+   }
 });
 
 
+
+
+// ==========================================================================
+// #Default
+// ==========================================================================
 gulp.task('default', ['build-sequence'], function () {
     // Watch css source files and compile on change + remove unused
-    gulp.watch(paths.assetsDirIn + 'scss/**/*.scss', ['sass', 'uncss']);
+    gulp.watch(paths.assetsDirIn + 'scss/**/*.scss', ['css-sequence']);
 
     // Watch HTML files + critical path and rebuild & reload
-    gulp.watch(paths.jekyllHtmlWatch, ['jekyll-rebuild']);
+    gulp.watch([paths.jekyllHtmlWatch, paths.source + '_config.yml'], ['jekyll-rebuild', 'htmlmin']);
 
     gulp.watch(paths.jsdir.in, reload);
 });
@@ -206,7 +216,7 @@ gulp.task('default', ['build-sequence'], function () {
 // ==========================================================================
 // #Deploy
 // ==========================================================================
-gulp.task('deploy', function () {
+gulp.task('deploy-run', function () {
     return gulp.src(paths.dest + '**/*')
         .pipe(deploy());
 });

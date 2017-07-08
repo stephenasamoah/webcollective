@@ -11,6 +11,7 @@ paths.includeDir = paths.source + '_includes/';
 paths.jekyllHtmlWatch = ['*.html', '_includes/*.html', '_layouts/*.html', '_posts/*', '_config.yml'];
 paths.criticalPath = paths.includeDir + 'critical.css';
 paths.generatedDir = paths.assetsDirIn + 'generated/';
+paths.cleanPaths = [paths.dest, paths.generatedDir + '.', paths.source + 'css/.'];
 
 
 //#Images
@@ -43,7 +44,8 @@ paths.htmldir = {
 // #cssdir
 paths.cssdir = {
     in: paths.assetsDirIn + 'scss/*.scss',
-    jekyllOut: paths.dest + 'css/',
+    jekyllOut: paths.source + 'css/',
+    stream: paths.dest + 'css/',
     out: paths.generatedDir + 'css/',
     mini: {suffix: '.min'},
 
@@ -88,7 +90,7 @@ paths.cssdir = {
 
     criticalOpts: {
         base: paths.dest,
-        css: [paths.dest + 'css/styles.min.css'],
+        css: [paths.source + 'css/styles.min.css'],
         minify: true
     }
 };
@@ -98,7 +100,7 @@ paths.jsdir = {
     in: paths.includeDir + 'scripts/*.js',
     out: paths.generatedDir + 'scripts/',
     jekyllOut: paths.dest + 'scripts/'
-}
+};
 
 // #browsersync
 paths.browserSync = {
@@ -106,7 +108,8 @@ paths.browserSync = {
         server: {
             baseDir: paths.dest,
         },
-        browser: "chrome"
+        browser: "chrome",
+        online: false
     }
 };
 
