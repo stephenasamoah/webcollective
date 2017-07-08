@@ -59,7 +59,7 @@ sass:
 
 #Environment
 #JEKYLL_ENV="development"
-#env : production
+env : production
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

@@ -83,7 +83,7 @@ gulp.task('critical', function () {
 });
 
 // #HTML
-gulp.task('htmlmin', ['jekyll-build'], function () {
+gulp.task('htmlmin', function () {
     return gulp.src(paths.htmldir.in)
         .pipe(gulp.dest(paths.htmldir.out))
         .pipe(print())
@@ -193,7 +193,7 @@ gulp.task('css-sequence', function (cb) {
    if(devBuild) {
        runSequence('sass', 'uncss', cb);
    } else {
-       runSequence('sass', 'uncss', 'jekyll-rebuild', cb);
+       runSequence('sass', 'uncss', 'jekyll-rebuild', 'htmlmin', cb);
    }
 });
 
