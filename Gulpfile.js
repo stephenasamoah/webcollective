@@ -4,6 +4,7 @@ var
     cp = require('child_process'),
     concat = require('gulp-concat'),
     critical = require('critical').stream,
+    deploy = require('gulp-gh-pages'),
     del = require('del'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
@@ -70,14 +71,13 @@ gulp.task('browser-sync', ['sass', 'jekyll-build', 'uncss'], function (cb) {
 /**
  * #Critical
  */
-gulp.task('critical', function (cb) {
+gulp.task('critical', function () {
     return gulp.src(paths.htmldir.in)
         .pipe(critical(paths.cssdir.criticalOpts))
         .pipe(concat('critical.css'))
         .pipe(nano())
         .pipe(gulp.dest(paths.includeDir))
         .pipe(print());
-    cb();
 });
 
 gulp.task('critical-run', function (cb) {
@@ -171,7 +171,7 @@ gulp.task('clear', function (done) {
 gulp.task('clean', ['clear'], function () {
     if (devBuild) {
         del([
-            paths.dest,
+            paths.dest
         ]);
     } else {
         del([
@@ -206,4 +206,7 @@ gulp.task('default', ['build-sequence'], function () {
 // ==========================================================================
 // #Deploy
 // ==========================================================================
-gulp.task('deploy', ['clean'])
+gulp.task('deploy', function () {
+    return gulp.src(paths.dest + '**/*')
+        .pipe(deploy());
+});

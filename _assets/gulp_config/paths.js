@@ -11,7 +11,7 @@ paths.includeDir = paths.source + '_includes/';
 paths.jekyllHtmlWatch = ['*.html', '_includes/*.html', '_layouts/*.html', '_posts/*', '_config.yml'];
 paths.criticalPath = paths.includeDir + 'critical.css';
 paths.generatedDir = paths.assetsDirIn + 'generated/';
-// paths.generatedFiles = [paths.jsdir.out, paths.cssdir.out, paths.htmldir.out];
+
 
 //#Images
 paths.imagedir = {
