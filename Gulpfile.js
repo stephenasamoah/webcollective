@@ -72,7 +72,6 @@ gulp.task('browser-sync', ['sass', 'jekyll-build', 'uncss'], function (cb) {
 });
 
 
-
 // #HTML
 gulp.task('htmlmin', function () {
     return gulp.src(paths.htmldir.in)
@@ -177,9 +176,12 @@ gulp.task('critical', function () {
         return gulp.src(paths.htmldir.in)
             .pipe(critical(paths.cssdir.criticalOpts))
             .pipe(concat('critical.css'))
+            .pipe(size({title: 'Purging:'}))
+            .pipe(purge())
             .pipe(nano())
             .pipe(gulp.dest(paths.includeDir))
-            .pipe(print());
+            .pipe(print())
+            .pipe(size({title: 'Current critical size:'}));
     }
 });
 // ==========================================================================
@@ -196,17 +198,14 @@ gulp.task('build-sequence', function (cb) {
 });
 
 
-
 // CSS Tasks
 gulp.task('css-sequence', function (cb) {
-   if(devBuild) {
-       runSequence('sass', 'uncss', cb);
-   } else {
-       runSequence('sass', 'critical', 'uncss', 'jekyll-rebuild', 'htmlmin', cb);
-   }
+    if (devBuild) {
+        runSequence('sass', 'uncss', cb);
+    } else {
+        runSequence('sass', 'critical', 'uncss', 'jekyll-rebuild', 'htmlmin', cb);
+    }
 });
-
-
 
 
 // ==========================================================================
