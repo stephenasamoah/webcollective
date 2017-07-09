@@ -9,8 +9,14 @@
     font-size: calc(2rem + 2.5vw);
   }
 
-  @include m(med) {
-    font-size: 2.618rem;
+  @include m(sec) {
+    font-size: 2.2rem;
+    line-height: 1.25;
+
+
+    @include media-q(medium) {
+      font-size: 2.618rem;
+    }
   }
 }
 

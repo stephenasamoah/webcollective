@@ -1,0 +1,22 @@
+{
+  "selectors": [
+    ".main__content",
+    "grid__col--12",
+    ".medium",
+    ".h--mega",
+    ".content--persona",
+    ".content--persona--photo",
+    ".panel--padded",
+    ".icn",
+    ".emoji",
+    ".center",
+    ".project__list",
+    ".project--preview",
+    ".project--item",
+    ".grey",
+    "inline--link",
+    "[class*=grid__col--]",
+    "[class*=grid__col--]>.grid",
+    "img"
+  ]
+}

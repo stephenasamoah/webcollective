@@ -9,6 +9,7 @@ var
     gulp = require('gulp'),
     gutil = require('gulp-util'),
     jpegtran = require('imagemin-jpegtran'),
+    ngrok = require('ngrok'),
     pkg = require('./package.json'),
     purge = require('gulp-css-purge'),
     imagemin = require('gulp-imagemin'),
@@ -20,10 +21,12 @@ var
     uncss = require('gulp-uncss'),
 
     rename = require('gulp-rename'),
+    replace = require('gulp-string-replace'),
     runSequence = require('run-sequence'),
     please = require('gulp-pleeease'),
     postcss = require('gulp-postcss'),
     print = require('gulp-print'),
+    psi = require('psi'),
     sass = require('gulp-sass'),
     smacss = require('css-declaration-sorter'),
     uglify = require('gulp-uglify');
@@ -68,19 +71,7 @@ gulp.task('browser-sync', ['sass', 'jekyll-build', 'uncss'], function (cb) {
     cb();
 });
 
-/**
- * #Critical
- */
-gulp.task('critical', function () {
-    if (!devBuild) {
-        return gulp.src(paths.htmldir.in)
-            .pipe(critical(paths.cssdir.criticalOpts))
-            .pipe(concat('critical.css'))
-            .pipe(nano())
-            .pipe(gulp.dest(paths.includeDir))
-            .pipe(print());
-    }
-});
+
 
 // #HTML
 gulp.task('htmlmin', function () {
@@ -134,7 +125,7 @@ gulp.task('js', function () {
 });
 
 /**
- * UnCSS
+ * #UnCSS
  */
 gulp.task('uncss', function () {
     return gulp.src(paths.cssdir.out + '**/*.css')
@@ -142,13 +133,14 @@ gulp.task('uncss', function () {
         .pipe(rename(paths.cssdir.mini))
         .pipe(nano())
         .pipe(size({title: 'CSS filesize after uncss:'}))
+        .pipe(size({title: 'Replacing:'}))
+        .pipe(replace('critical:this;', ''))
         .pipe(gulp.dest(paths.cssdir.jekyllOut))
         .pipe(print())
         .pipe(gulp.dest(paths.cssdir.stream))
         .pipe(print()) // For BrowserSync Stream
         .pipe(browserSync.stream())
-        //.on('error', gutil.log);
-
+        .on('error', gutil.log);
 });
 
 
@@ -177,15 +169,32 @@ gulp.task('clean', ['clear'], function () {
 });
 
 // ==========================================================================
+// #Critical
+// ==========================================================================
+
+gulp.task('critical', function () {
+    if (!devBuild) {
+        return gulp.src(paths.htmldir.in)
+            .pipe(critical(paths.cssdir.criticalOpts))
+            .pipe(concat('critical.css'))
+            .pipe(nano())
+            .pipe(gulp.dest(paths.includeDir))
+            .pipe(print());
+    }
+});
+// ==========================================================================
 // #RunSequence
 // ==========================================================================
 
 // Default
 gulp.task('build-sequence', function (cb) {
-    runSequence(['sass', 'jekyll-build'], ['uncss', 'htmlmin'], 'critical', 'browser-sync', cb);
+    if (devBuild) {
+        runSequence(['sass', 'jekyll-build'], 'critical', ['uncss', 'htmlmin'], 'browser-sync', cb);
+    } else {
+        runSequence(['sass', 'jekyll-build'], 'critical', 'jekyll-rebuild', ['uncss', 'htmlmin'], 'browser-sync', cb);
+    }
 });
 
-// Critical Sequence
 
 
 // CSS Tasks
@@ -193,7 +202,7 @@ gulp.task('css-sequence', function (cb) {
    if(devBuild) {
        runSequence('sass', 'uncss', cb);
    } else {
-       runSequence('sass', 'uncss', 'jekyll-rebuild', 'htmlmin', cb);
+       runSequence('sass', 'critical', 'uncss', 'jekyll-rebuild', 'htmlmin', cb);
    }
 });
 
@@ -216,7 +225,7 @@ gulp.task('default', ['build-sequence'], function () {
 // ==========================================================================
 // #Deploy
 // ==========================================================================
-gulp.task('deploy-run', function () {
+gulp.task('deploy', function () {
     return gulp.src(paths.dest + '**/*')
         .pipe(deploy());
 });

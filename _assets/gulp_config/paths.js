@@ -1,5 +1,6 @@
 var paths = {},
     assetSass = require('node-sass-asset-functions'),
+    forceCritical = require('../critical.json'),
     devBuild = ((process.env.NODE_ENV || 'development').trim().toLowerCase() !== 'production');
 
 // #Directory Locations
@@ -11,7 +12,9 @@ paths.includeDir = paths.source + '_includes/';
 paths.jekyllHtmlWatch = ['*.html', '_includes/*.html', '_layouts/*.html', '_posts/*', '_config.yml'];
 paths.criticalPath = paths.includeDir + 'critical.css';
 paths.generatedDir = paths.assetsDirIn + 'generated/';
+paths.site = '';
 paths.cleanPaths = [paths.dest, paths.generatedDir + '.', paths.source + 'css/.'];
+paths.deployPath = [paths.source + '.publish/'];
 
 
 //#Images
@@ -90,8 +93,9 @@ paths.cssdir = {
 
     criticalOpts: {
         base: paths.dest,
-        css: [paths.source + 'css/styles.min.css'],
-        minify: true
+        css: [paths.source + 'css/styles.css'],
+        include: forceCritical.selectors,
+        minify: !devBuild
     }
 };
 
@@ -106,11 +110,25 @@ paths.jsdir = {
 paths.browserSync = {
     bsOpts: {
         server: {
-            baseDir: paths.dest,
+            baseDir: paths.dest
         },
         browser: "chrome",
         online: false
     }
 };
+
+// #PSI
+paths.psi = {
+    deskOpts: {
+        nokey: true,
+        strategy: 'desktop',
+        threshold: 95
+    },
+    mobileOpts: {
+        nokey: true,
+        strategy: 'mobile',
+        threshold: 95
+    }
+}
 
 module.exports = paths;

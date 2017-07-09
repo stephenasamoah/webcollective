@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="{{ '/css/styles.min.css' | prepend: site.baseurl }}" type="text/css">
 </noscript>
 
-<script>
+<script type="text/javascript">
     // Inline loadCSS
     {% include loadCSS/loadcss.min.js %}
     {% include loadCSS/preload.min.js %}
 
-    //onLoad fallback
+    // onLoad fallback
     {% include loadCss/onloadcss.min.js %}
     var stylesheet = loadCSS( "{{ '/css/styles.min.css' | prepend: site.baseurl }}" );
     onloadCSS( stylesheet, function() {

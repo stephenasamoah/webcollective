@@ -26,7 +26,7 @@ collections:
     output: true
 
 baseurl: "" # the subpath of your site, e.g. /blog
-url: https://webcollective.ml # the base hostname & protocol for your site, e.g. http://example.com
+url: https://www.webcollective.ml # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: realasamoah
 github_username:  stephenasamoah
 behance_username: stephenasamoah

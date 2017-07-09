@@ -5,8 +5,8 @@
 // scss-lint:disable StringQuotes, Comment, FinalNewline, NameFormat, ColorKeyword, ColorVariable, SelectorFormat, PropertySortOrder
 
 .logo {
-  line-height: 0;
 
+  line-height: 0;
 
 
   &:hover {
@@ -26,6 +26,7 @@
 
   // Desktop Logo
   @include m(mega) {
+
     display: none;
 
     path {
@@ -41,6 +42,7 @@
 
   // Mobile Logo
   @include m(mini) {
+
     display: block;
     width: 15%;
     max-width: 4rem;
@@ -57,6 +59,8 @@
 
 .content {
   @include m(persona) {
+
+
     padding-top: 4.8rem;
     padding-bottom: 4.8rem;
 
@@ -65,6 +69,8 @@
     }
 
     @include m(photo) {
+
+
       width: 12rem;
       height: 12rem;
       border-radius: 50%;

@@ -21,6 +21,10 @@
     </noscript>
 
     {% include loadcss.html %}
+    <script type="text/javascript">
+        {% include webfontloader/fontSessionStorage.js %}
+    </script>
+
 
     {% if site.env == "production" %}
         <!-- HTML5Shiv -->
@@ -28,15 +32,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"
                 integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
         <![endif]-->
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="preconnect" crossorigin>
     {% endif %}
 
 
-
-
-    <!-- Fonts -->
-    {% if site.env == "production" %}
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
-    {% endif %}
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ site.baseurl }}/assets/images/logo/favicon.ico" type="icon/ico">
