@@ -3,7 +3,7 @@
 {% include head.html %}
 
 
-<body class="{{ page.page_name }}{% if page.short_page %} short-page{% endif %}">
+<body class="{{ page.page_name | replace: ' ', '-' }}{% if page.short_page %} short-page{% endif %}">
 {% include header.html %}
 <section class="grid main__content{% if page.short_page %} row{% endif %}">
 

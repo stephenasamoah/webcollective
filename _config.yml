@@ -23,7 +23,7 @@ permalink: /:categories/:title
 
 collections:
   projects:
-    output: true
+    #output: true
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: https://www.webcollective.ml # the base hostname & protocol for your site, e.g. http://example.com
@@ -33,9 +33,9 @@ behance_username: stephenasamoah
 
 # Build settings
 markdown: kramdown
-#theme: minima
+theme: minima
 plugins:
- # - jekyll-feed
+  - jekyll-feed
 
 #highlighter: pygments
 
@@ -45,7 +45,7 @@ links:
     - title: projects
       url: /projects
     - title: find me
-      url: /contact
+      url: /find-me
 
 
 
