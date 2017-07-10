@@ -1,6 +1,6 @@
 {
   "selectors": [
     ".main__content", "grid__col--12", ".medium", ".h--mega", ".h--sec", ".content--persona", ".content--persona--photo", ".panel--padded", ".icn", ".emoji", ".center", ".project__list", ".project--preview", ".project--item", ".grey", "inline--link", "[class*=grid__col--]", "[class*=grid__col--]>.grid", "img",
-    ".row", ".panel", "h1", "h2", "h3", "h4", ".olive", "p", ".main__content p", ".icn--social", ".light", ".footer", ".footer__list", ".footer__list--item", ".hr--heavy", ".panel--padded--centered", ".panel__social"
+    ".row", ".panel", "h1", "h2", "h3", "h4", ".olive", "p", ".main__content p", ".icn--social", ".light", ".footer", ".footer__list", ".footer__list--item", ".hr--heavy", ".panel--padded--centered", ".panel__social", ".bold"
   ]
 }
