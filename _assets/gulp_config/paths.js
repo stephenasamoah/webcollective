@@ -13,8 +13,7 @@ paths.jekyllHtmlWatch = ['*.html', '_includes/*.html', '_layouts/*.html', '_post
 paths.criticalPath = paths.includeDir + 'critical.css';
 paths.generatedDir = paths.assetsDirIn + 'generated/';
 paths.site = '';
-paths.cleanPaths = [paths.dest, paths.generatedDir + '.', paths.source + 'css/.'];
-paths.deployPath = [paths.source + '.publish/'];
+paths.deployPath = paths.source + '.publish/';
 
 
 //#Images
