@@ -62,6 +62,10 @@
   font-weight: $font-weight-bold;
 }
 
+.visually-hidden {
+  @extend %srt;
+}
+
 %flex-sb {
   display: flex;
   justify-content: space-between;
