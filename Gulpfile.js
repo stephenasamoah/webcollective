@@ -194,7 +194,7 @@ gulp.task('build-sequence', function (cb) {
     if (devBuild) {
         runSequence(['imagemin', 'sass', 'jekyll-build'], 'critical', ['uncss', 'htmlmin'], 'browser-sync', cb);
     } else {
-        runSequence('clean', ['sass', 'jekyll-build', 'imagemin'], 'critical', 'jekyll-rebuild', ['uncss', 'htmlmin'], 'browser-sync', cb);
+        runSequence('clean', 'imagemin', ['sass', 'jekyll-build'], 'critical', 'jekyll-rebuild', ['uncss', 'htmlmin'], 'browser-sync', cb);
     }
 });
 
