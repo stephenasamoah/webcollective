@@ -7,13 +7,15 @@ var paths = {},
 paths.source = './';
 paths.dest = '_site/';
 paths.assetsDirIn = paths.source + '_assets/';
-paths.assetsDirOut = paths.dest + 'assets/';
+paths.assetsDirOut = paths.source + 'assets/';
 paths.includeDir = paths.source + '_includes/';
-paths.jekyllHtmlWatch = ['*.html', '_includes/*.html', '_layouts/*.html', '_posts/*', '_config.yml'];
+paths.jekyllWatch = ['*.html', '_includes/**/*', '_layouts/**/*', '_projects/**/*', '_posts/**/*', '_config.yml'];
 paths.criticalPath = paths.includeDir + 'critical.css';
 paths.generatedDir = paths.assetsDirIn + 'generated/';
 paths.site = '';
 paths.deployPath = paths.source + '.publish/';
+paths.cleanPaths = [paths.dest, paths.generatedDir + '.', paths.source + 'css/.', paths.assetsDirOut + '.'];
+
 
 
 //#Images

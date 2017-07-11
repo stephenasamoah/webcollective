@@ -93,11 +93,15 @@
 }
 // #Colors
 .deep-carrot {
-  color: $color-accent;
+  color: $color-accent-dark;
 }
 
 .olive {
-  color: $color-secondary;
+  color: $color-secondary-dark; // For accessibility
+
+  @include media-q(medium) {
+    color: $color-secondary;
+  }
 }
 
 .grey {
@@ -114,11 +118,22 @@
   display: inline-block;
 
   @include m(link) {
-    @extend .olive, .inline;
-    text-decoration: underline;
+    @extend .inline;
+    padding-left: .3rem;
+    padding-right: .3rem;
+    background-color: palette(grey, light);
+    color: $black;
+
+    @include p-el(after, auto, 100%) {
+      content: '';
+      left: 0;
+      bottom: 0;
+      border-bottom: 1px dashed $color-accent;
+    }
 
     &:hover {
-      color: $color-accent;
+      background: $color-accent;
+      color: $white;
     }
   }
 }

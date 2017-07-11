@@ -36,6 +36,7 @@
     a {
       color: $white;
       padding-bottom: .3rem;
+      transition-property: border-bottom-color;
 
       &:hover {
         border-bottom: 2px solid $white;
