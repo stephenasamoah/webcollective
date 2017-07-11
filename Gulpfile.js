@@ -147,9 +147,10 @@ gulp.task('uncss', function () {
 gulp.task('imagemin', function () {
     return gulp.src(paths.imagedir.in)
         .pipe(newer(paths.imagedir.out))
-        .pipe(imagemin(paths.imagedir.imgOpts, {use: [jpegtran()]}))
+        .pipe(imagemin(paths.imagedir.imgOpts, {use: [jpegtran({progressive: true})]}))
         .pipe(svgo())
         .pipe(gulp.dest(paths.imagedir.out))
+        .pipe(print());
 });
 
 // Directory Cleaner
@@ -191,9 +192,9 @@ gulp.task('critical', function () {
 // Default
 gulp.task('build-sequence', function (cb) {
     if (devBuild) {
-        runSequence(['sass', 'jekyll-build'], 'critical', ['uncss', 'htmlmin'], 'browser-sync', cb);
+        runSequence(['imagemin', 'sass', 'jekyll-build'], 'critical', ['uncss', 'htmlmin'], 'browser-sync', cb);
     } else {
-        runSequence(['sass', 'jekyll-build'], 'critical', 'jekyll-rebuild', ['uncss', 'htmlmin'], 'browser-sync', cb);
+        runSequence('clean', ['sass', 'jekyll-build', 'imagemin'], 'critical', 'jekyll-rebuild', ['uncss', 'htmlmin'], 'browser-sync', cb);
     }
 });
 
@@ -216,9 +217,13 @@ gulp.task('default', ['build-sequence'], function () {
     gulp.watch(paths.assetsDirIn + 'scss/**/*.scss', ['css-sequence']);
 
     // Watch HTML files + critical path and rebuild & reload
-    gulp.watch([paths.jekyllHtmlWatch, paths.source + '_config.yml'], ['jekyll-rebuild', 'htmlmin']);
+    gulp.watch([paths.jekyllWatch], ['jekyll-rebuild', 'htmlmin']);
 
+    // Watch JS files
     gulp.watch(paths.jsdir.in, reload);
+
+    // Watch and optimize new images
+    gulp.watch(paths.imagedir.in, ['imagemin'])
 });
 
 // ==========================================================================
