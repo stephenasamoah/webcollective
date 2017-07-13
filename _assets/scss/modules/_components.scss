@@ -26,17 +26,21 @@
 
   // Desktop Logo
   @include m(mega) {
-
     display: none;
 
-    path {
-      fill: $color-accent;
-    }
 
     @include media-q('medium') {
       display: block;
       width: 25%;
       max-width: 20rem;
+
+      svg {
+        width: 100%;
+
+        path {
+          fill: $color-accent;
+        }
+      }
     }
   }
 
@@ -47,8 +51,12 @@
     width: 15%;
     max-width: 4rem;
 
-    path {
-      fill: $white;
+    svg {
+      width: 100%;
+
+      path {
+        fill: $white;
+      }
     }
 
     @include media-q('medium') {
