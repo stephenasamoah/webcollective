@@ -108,32 +108,9 @@
   color: palette(grey, dark);
 }
 
+
 // #Gradients
 %color-accent-grad {
-  background: linear-gradient(to right, $color-accent-dark, $color-accent);
+  background: linear-gradient(to bottom right, $color-accent-dark, $color-accent);
 }
 
-// Link
-.inline {
-  display: inline-block;
-
-  @include m(link) {
-    @extend .inline;
-    padding-left: .3rem;
-    padding-right: .3rem;
-    background-color: palette(grey, light);
-    color: $black;
-
-    @include p-el(after, auto, 100%) {
-      content: '';
-      left: 0;
-      bottom: 0;
-      border-bottom: 1px dashed $color-accent;
-    }
-
-    &:hover {
-      background: $color-accent;
-      color: $white;
-    }
-  }
-}

@@ -1,7 +1,7 @@
 // ==========================================================================
 // #MISC
 // ==========================================================================
-.active {
+.active { // Places bottom border on navigation link for current page
   border-bottom: 2px solid $white;
 
   @include media-q(medium) {
@@ -9,8 +9,43 @@
   }
 }
 
-.short-page {
+
+.short-page { // For shorter pages that have potentially hanging footers
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+
+// Adjusts to select side in flex container
+.alt {
+  @include m(left) {
+    margin-right: auto;
+  }
+
+  @include m(right) {
+    margin-left: auto;
+  }
+}
+
+/**
+ * #Inline
+ */
+.inline {
+  display: inline-block;
+
+  @include m(link) {
+    @extend .inline;
+    padding-left: .2rem;
+    padding-right: .2rem;
+
+    background: linear-gradient(to bottom right, $color-accent, $color-accent) no-repeat bottom;
+    background-size: 100% .2rem;
+    transition: background-size .2s, color .1s, $trns-type $trns-duration;
+
+    &:hover {
+      color: $white;
+      background-size: 100% 100%;
+    }
+  }
 }
