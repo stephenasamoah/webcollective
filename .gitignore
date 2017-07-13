@@ -10,5 +10,6 @@ bower_components/
 .publish/
 /css/
 _assets/*
+_assets/.gitignore
 !_assets/scss
 !_assets/gulp_config
