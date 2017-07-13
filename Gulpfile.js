@@ -6,6 +6,7 @@ var
     critical = require('critical').stream,
     deploy = require('gulp-gh-pages'),
     del = require('del'),
+    group = require('gulp-group-css-media-queries'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
     jpegtran = require('imagemin-jpegtran'),
@@ -172,19 +173,26 @@ gulp.task('clean', ['clear'], function () {
 // #Critical
 // ==========================================================================
 
-gulp.task('critical', function () {
+gulp.task('critical', function (cb) {
     if (!devBuild) {
-        return gulp.src(paths.htmldir.in)
+        gulp.src(paths.htmldir.in)
+            .pipe(newer(paths.htmldir.out))
             .pipe(critical(paths.cssdir.criticalOpts))
             .pipe(concat('critical.css'))
-            .pipe(size({title: 'Purging:'}))
-            .pipe(purge())
+            .pipe(gulp.dest(paths.assetsDirIn + 'critical/'))
+            .pipe(print())
+
+            .pipe(group()) // group duplicate  media-query rules
             .pipe(nano())
             .pipe(gulp.dest(paths.includeDir))
+
             .pipe(print())
-            .pipe(size({title: 'Current critical size:'}));
+            .pipe((size({title: 'Current critical size:'})));
     }
+    cb();
 });
+
+
 // ==========================================================================
 // #RunSequence
 // ==========================================================================
@@ -199,13 +207,18 @@ gulp.task('build-sequence', function (cb) {
 });
 
 
-// CSS Tasks
+// CSS Watch Task Sequence
 gulp.task('css-sequence', function (cb) {
     if (devBuild) {
         runSequence('sass', 'uncss', cb);
     } else {
         runSequence('sass', 'critical', 'uncss', 'jekyll-rebuild', 'htmlmin', cb);
     }
+});
+
+// HTML Watch Task Sequence
+gulp.task('html-sequence', function (cb) {
+    runSequence('jekyll-rebuild', 'htmlmin', cb);
 });
 
 
@@ -216,8 +229,8 @@ gulp.task('default', ['build-sequence'], function () {
     // Watch css source files and compile on change + remove unused
     gulp.watch(paths.assetsDirIn + 'scss/**/*.scss', ['css-sequence']);
 
-    // Watch HTML files + critical path and rebuild & reload
-    gulp.watch([paths.jekyllWatch], ['jekyll-rebuild', 'htmlmin']);
+    // Watch HTML files + critical path => rebuild & reload
+    gulp.watch([paths.jekyllWatch], ['html-sequence']);
 
     // Watch JS files
     gulp.watch(paths.jsdir.in, reload);

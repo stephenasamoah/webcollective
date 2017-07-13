@@ -10,11 +10,11 @@ paths.assetsDirIn = paths.source + '_assets/';
 paths.assetsDirOut = paths.source + 'assets/';
 paths.includeDir = paths.source + '_includes/';
 paths.jekyllWatch = ['*.html', '_includes/**/*', '_layouts/**/*', '_projects/**/*', '_posts/**/*', '_config.yml'];
-paths.criticalPath = paths.includeDir + 'critical.css';
+paths.criticalPath = paths.assetsDirIn + 'critical/critical.css';
 paths.generatedDir = paths.assetsDirIn + 'generated/';
 paths.site = '';
 paths.deployPath = paths.source + '.publish/';
-paths.cleanPaths = [paths.dest, paths.generatedDir + '.', paths.source + 'css/.', paths.assetsDirOut + '.'];
+paths.cleanPaths = [paths.dest, paths.generatedDir + '.', paths.source + 'css/.', paths.assetsDirOut + '.', paths.assetsDirIn + 'critical/.'];
 
 
 
@@ -79,7 +79,7 @@ paths.cssdir = {
             rem: ['16px'],
             pseudoElements: true,
             mqpacker: true,
-            minifier: !devBuild
+            minifier: false
         },
 
         rename: {
@@ -94,7 +94,7 @@ paths.cssdir = {
 
     criticalOpts: {
         base: paths.dest,
-        css: [paths.source + 'css/styles.css'],
+        css: [paths.generatedDir + 'css/styles.css'],
         include: forceCritical.selectors,
         minify: !devBuild
     }
@@ -118,18 +118,5 @@ paths.browserSync = {
     }
 };
 
-// #PSI
-paths.psi = {
-    deskOpts: {
-        nokey: true,
-        strategy: 'desktop',
-        threshold: 95
-    },
-    mobileOpts: {
-        nokey: true,
-        strategy: 'mobile',
-        threshold: 95
-    }
-}
 
 module.exports = paths;
