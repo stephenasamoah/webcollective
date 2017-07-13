@@ -1,3 +1,25 @@
 // ==========================================================================
 // #For IE8 Styles
 // ==========================================================================
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+  // Faux-fix for ultra-large logo height
+  .logo--mega,
+  .logo--mini {
+    height: 4vh;
+  }
+
+  // Faux-fix for hanging footer
+  .short-page {
+    .hr--heavy {
+      position: relative;
+      top: 80vh;
+    }
+
+    .footer {
+      position: absolute;
+      top: 95vh;
+      width: 100%;
+    }
+  }
+}
